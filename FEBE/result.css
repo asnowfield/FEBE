@@ -7,17 +7,10 @@ h1{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.button{
-    width: 40vw;
-    height: 20vh;
-    background-color: gainsboro;
-    margin: 10px;
-    align-items: center;
-    display: flex;
-}
 .frame{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 30px;
+    text-align: center;
+}
+#score{
+    text-align: center;
+    font-size: 10vb;
 }
