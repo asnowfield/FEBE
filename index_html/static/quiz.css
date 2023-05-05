@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(245, 250, 248);
+}
+
+h1 {
+    text-align: center;
+    background: -webkit-linear-gradient(left, rgb(202, 243, 54), rgb(3, 172, 11));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.common {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+p {
+    display: inline;
+}

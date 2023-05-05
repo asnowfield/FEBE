@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/quiz.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <h1>Color Master</h1>
+  </header>
+
+  <div class="time">
+    <p id="time">⌛GOGO⌛</p>
+  </div>
+  <div class="score">
+    <p>score:</p>
+    <p id="score">0</p>
+  </div>
+  <div class="box">
+    <div class="common" onclick="select(this)"></div>
+    <div class="common" onclick="select(this)"></div>
+    <div class="common" onclick="select(this)"></div>
+    <div class="common" onclick="select(this)"></div>
+    <div class="common" onclick="select(this)"></div>
+    <div class="common" onclick="select(this)"></div>
+  </div>
+
+  <script>
+    var currentURL = window.location.href
+    var dificult
+
+    if ((currentURL).includes('ez')) {
+      dificult = 'ez'
+    } else if ((currentURL).includes('nm')) {
+      dificult = 'nm'
+    } else {
+      dificult = 'hd'
+    }
+
+    var common = document.getElementsByClassName('common')
+    var uniqueClassNum = Math.floor(Math.random() * common.length)
+    common[uniqueClassNum].classList.add("unique")
+    var unique = document.getElementsByClassName('unique')
+    const EZNUM = 13
+    const NMNUM = 50
+    const HDNUM = 10
+    var r = Math.floor(Math.random() * 256); // generates a random value for red (0-255)
+    var g = Math.floor(Math.random() * 256); // generates a random value for green (0-255)
+    var b = Math.floor(Math.random() * 256); // generates a random value for blue (0-255)
+    var rgb = "rgb(" + r + "," + g + "," + b + ")"
+
+    for (var i = 0; i < common.length; i++) {
+      common[i].style.backgroundColor = rgb
+    }
+
+    // [ez,nm,hd] Mode Color Function ** Need a function that minus a const num, when RGB over the 255.
+    if (dificult == 'ez') {
+      var uniqueR = (r * EZNUM) % 255
+      var uniqueG = (g * EZNUM) % 255
+      var uniqueB = (b * EZNUM) % 255
+      var uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+      unique[0].style.backgroundColor = uniqeRGB
+    } else if (dificult == 'nm') {
+      var uniqueR = (r + NMNUM) % 255
+      var uniqueG = (g + NMNUM) % 255
+      var uniqueB = (b + NMNUM) % 255
+      var uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+      unique[0].style.backgroundColor = uniqeRGB
+    } else {
+      var uniqueR = (r + HDNUM) % 255
+      var uniqueG = (g + HDNUM) % 255
+      var uniqueB = (b + HDNUM) % 255
+      var uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+      unique[0].style.backgroundColor = uniqeRGB
+    }
+
+
+    select = (current) => {
+      var score = Number(document.getElementById('score').innerHTML)
+      if (current.classList.contains("unique")) {
+        if (dificult == 'ez') {
+          document.getElementById('score').innerHTML = score + 7;
+        } else if (dificult == 'nm') {
+          document.getElementById('score').innerHTML = score + 10;
+        } else if (dificult == 'hd') {
+          document.getElementById('score').innerHTML = score + 15;
+        }
+      }
+
+      unique[0].classList.remove('unique')
+      uniqueClassNum = Math.floor(Math.random() * common.length)
+      common[uniqueClassNum].classList.add("unique")
+
+      r = Math.floor(Math.random() * 256)
+      g = Math.floor(Math.random() * 256)
+      b = Math.floor(Math.random() * 256)
+      rgb = "rgb(" + r + "," + g + "," + b + ")"
+
+      for (var i = 0; i < common.length; i++) {
+        common[i].style.backgroundColor = rgb
+      }
+
+      if (dificult == 'ez') {
+        uniqueR = (r * EZNUM) % 255
+        uniqueG = (g * EZNUM) % 255
+        uniqueB = (b * EZNUM) % 255
+        uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+        unique[0].style.backgroundColor = uniqeRGB
+      } else if (dificult == 'nm') {
+        uniqueR = (r + NMNUM) % 255
+        uniqueG = (g + NMNUM) % 255
+        uniqueB = (b + NMNUM) % 255
+        uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+        unique[0].style.backgroundColor = uniqeRGB
+      } else {
+        uniqueR = (r + HDNUM) % 255
+        uniqueG = (g + HDNUM) % 255
+        uniqueB = (b + HDNUM) % 255
+        uniqeRGB = "rgb(" + uniqueR + "," + uniqueG + "," + uniqueB + ")"
+        unique[0].style.backgroundColor = uniqeRGB
+      }
+    }
+
+    const timeElement = document.getElementById("time");
+    let time = 10;
+    const countdown = setInterval(() => {
+      timeElement.innerText = time;
+      time--;
+      if (time < 0) {
+        clearInterval(countdown)
+        document.getElementById('score').innerHTML
+        fetch('/result')
+          .then(Response => Response.json())
+          .then(data => {
+
+          })
+          .catch(error => console.error(error))
+      }
+    }, 1000);
+
+  </script>
+</body>
+
+</html>
