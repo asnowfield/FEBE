@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/result.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>🎇🎆Good JJOB🎆🎇</h1>
+    </header>
+    <p id="score"></p>
+    <div class="frame">
+        <input type="text" placeholder="NAME IT! WHO IS HE!">
+        <button type="submit">submit</button>
+    </div>
+</body>
+<script>
+    document.getElementById('score').innerHTML = localStorage.getItem('resultScore')
+
+    $(document).ready(function () {
+        $('#submitBtn').click(function () {
+            var score = $('#score').text();
+            var username = $('#username').val();
+
+            $.ajax({
+                url: 'insert_score.php', // path to server-side script that will handle database insert
+                type: 'POST',
+                data: {
+                    score: score,
+                    username: username
+                },
+                success: function (response) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/rank');
+                    xhr.send()
+                    window.location.href = '/rank';
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+
+</html>

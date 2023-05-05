@@ -1,0 +1,20 @@
+body{
+    background-color: rgb(245, 250, 248);
+}
+h1{
+    text-align: center;
+    background: -webkit-linear-gradient(left,rgb(202, 243, 54),rgb(3, 172, 11));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.frame{
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid black;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.frame p{
+    display: inline;
+}
