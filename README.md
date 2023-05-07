@@ -7,7 +7,7 @@
 1. index.html
 2. quiz.html
 3. result.html
-    - DB에 저장. (SQLite?)
+    - DB에 저장. (SQLite3)
 4. rank.html
     - DB 읽어 오기.
 ```
