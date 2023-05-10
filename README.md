@@ -26,3 +26,9 @@ CREATE TABLE quizDB (
 3. npm install express, cors, body-parser, sqlite3.
 ![image](https://github.com/asnowfield/FEBE/assets/86102527/570629a3-dfde-48a3-ae96-29fdf0fc2ac1)
 4. To Start Enter the node server.js ❗entry point에서 설정한 js 파일 명을 입력해 주셔야 합니다.❗
+
+
+#TODO
+1. 난이도 조절 값 설정.
+2. Index.html에서 rank.html로 이동하는 API 구현.
+3. 
