@@ -1,7 +1,8 @@
 # Dev Enviroment
 1. IDE: VSC
-2. mysql
-3. HTML, CSS (BootStrap?), Vanilla JS, Node.
+2. sqlite3
+3. HTML, CSS, Vanilla JS, XMLhttpRequest.
+4. Node : (express, cors, body-parser, sqlite3)
 
 # Sequnce 
 1. index.html
