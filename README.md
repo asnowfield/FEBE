@@ -39,6 +39,7 @@ CREATE TABLE quizDB (
 8. 3-life game.
 9. start.html.
 10. score index to button.
+11. MEMber, delete score?
 
 # Done 
 1. Index.html에서 난이도별 rank.html 이동 버튼.
