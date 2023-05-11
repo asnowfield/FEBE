@@ -33,10 +33,14 @@ CREATE TABLE quizDB (
 2. Index.html에서 rank.html로 이동 버튼.
 3. rank.html 에서 index.html로 이동 버튼.
 4. UI, UX 조정.
-5. add meta 
-6. upgrade head
+5. add meta.
+6. upgrade head.
+7. 10second speed run.
+8. 3-life game.
+9. start.html.
+10. score index to button.
 
 # Done 
 1. Index.html에서 난이도별 rank.html 이동 버튼.
-2. N datatables vs one datatable that has one more column. chose N tables
+2. N datatables vs one datatable that has one more column. chose N tables.
 3. 
