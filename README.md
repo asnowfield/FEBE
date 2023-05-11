@@ -41,7 +41,7 @@ CREATE TABLE quizDB (
 10. score index to button.
 11. MEMber, delete score? 
 12. if user is a member, than score maintiained in forever perhaps delete score. anonymous score get delete in 24hours.
-13. 
+13. pop cat처럼 구ㅏ여운거로 하기.
 
 # Done 
 1. Index.html에서 난이도별 rank.html 이동 버튼.
