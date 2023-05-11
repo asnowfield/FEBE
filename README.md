@@ -30,5 +30,12 @@ CREATE TABLE quizDB (
 
 # TODO
 1. 난이도 조절 값 설정.
-2. Index.html에서 rank.html로 이동하는 API 구현.
-3. Index.html에서 난이도별 rank.html 이동.
+2. Index.html에서 rank.html로 이동 버튼.
+3. rank.html 에서 index.html로 이동 버튼.
+4. UI, UX 조정.
+5. 
+
+# Done 
+1. Index.html에서 난이도별 rank.html 이동 버튼.
+2. N datatables vs one datatable that has one more column. chose N tables
+3. 
