@@ -45,6 +45,7 @@
 12. if user is a member, than score maintiained in forever perhaps delete score. anonymous score get delete in 24hours.
 13. pop cat처럼 귀여운거로 하기? It'll take some time.
 14. ip로 국가 확인해서 국가 붙이기.
+15. name can be Null.
 
 
 # Done 
