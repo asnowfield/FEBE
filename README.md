@@ -38,7 +38,7 @@
 5. add meta.
 6. upgrade head.
 7. 10second speed run.
-8. 3-life game.
+8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
 9. start.html.
 10. score index to button.
 11. MEMber, delete score? 
