@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/result.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>🎇🎆Good JJOB🎆🎇</h1>
+    </header>
+    <p id="score"></p>
+    <div class="frame">
+      <input type="text" id="userName" placeholder="NAME IT! WHO IS HE!" />
+      <button type="submit" onclick="submit()">submit</button>
+    </div>
+  </body>
+  <script>
+    document.getElementById("score").innerHTML =
+      localStorage.getItem("resultScore");
+
+    function submit() {
+      var score = document.getElementById("score").textContent;
+      var userName = document.getElementById("userName").value;
+      fetch("/resultData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ score, userName }),
+      })
+        .then((response) => {
+          console.log("Data sent to server");
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", "/rank");
+          xhr.send();
+          window.location.href = "/rank";
+        })
+        .catch((error) => {
+          console.error("Error sending data to server:", error);
+        });
+    }
+  </script>
+</html>
