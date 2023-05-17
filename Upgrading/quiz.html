@@ -84,9 +84,12 @@
           var score = Number(document.getElementById("score").innerHTML);
 
           if (current.classList.contains("unique")) {
-            document.getElementById("score").innerHTML = score + 7;
+            document.getElementById("score").innerHTML = score + 7;              
           }
-
+          if (currentURL.includes("3life")) {
+            life-=1;
+          }
+          
           //Changethe unique selection.
           unique[0].classList.remove("unique");
           uniqueClassNum = Math.floor(Math.random() * common.length);
@@ -97,7 +100,6 @@
           for (var i = 0; i < common.length; i++) {
             common[i].style.backgroundColor = rgb;
           }
-
           unique[0].style.backgroundColor = generateUnique(r, g, b, modeNum);
         };
 
@@ -114,7 +116,7 @@
         }
 
         //CheckingMode
-        if (currentURL.includes("10life")) {
+        if (currentURL.includes("10sec")) {
           var timeElement = document.getElementById("time");
           timeElement.classList.remove("hideden");
           const countdown = setInterval(() => {
@@ -133,12 +135,12 @@
         } else if (currentURL.includes("3life")) {
           var lifeElement = document.getElementById("life");
           lifeElement.classList.remove("hidden");
-          for (var i = 0; i < common.length; i++) {
-            common[i].classList.add = wrong;
+          if (life <1 ) {
+            const xhr = new XMLHttpRequst();
+            xhr.open("GET", "/result");
+            xhr.send();
+            window.location.href="/result";
           }
-          unique[0].classList.remove=wrong;
-          unique[0].classList.add=answer;
-          
         }
 
         //Apply color.
