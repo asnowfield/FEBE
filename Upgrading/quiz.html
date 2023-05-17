@@ -114,7 +114,7 @@
         }
 
         //CheckingMode
-        if (currentURL.includes("3life")) {
+        if (currentURL.includes("10life")) {
           var timeElement = document.getElementById("time");
           timeElement.classList.remove("hideden");
           const countdown = setInterval(() => {
@@ -130,9 +130,15 @@
               window.location.href = "/result";
             }
           }, 1000);
-        } else if (currentURL.includes("10sec")) {
+        } else if (currentURL.includes("3life")) {
           var lifeElement = document.getElementById("life");
           lifeElement.classList.remove("hidden");
+          for (var i = 0; i < common.length; i++) {
+            common[i].classList.add = wrong;
+          }
+          unique[0].classList.remove=wrong;
+          unique[0].classList.add=answer;
+          
         }
 
         //Apply color.
