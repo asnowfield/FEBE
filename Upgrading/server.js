@@ -7,7 +7,7 @@ const port = 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("static"));
-
+//To index.html
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
@@ -19,8 +19,6 @@ app.get("/:select", (req, res) => {
     res.sendFile(__dirname + "/selection.html");
   } else if (select == "10sec") {
     res.sendFile(__dirname + "/selection.html");
-  } else {
-    alert("What is that🤨 Select one in two kinds mode!");
   }
 });
 
@@ -28,7 +26,6 @@ app.get("/:select", (req, res) => {
 app.get("/clkvalue/:mode/:dificult", (req, res) => {
   const { mode } = req.params;
   const { dificult } = req.params;
-  console.log(mode);
   if (mode) {
     const quizURL = `/quiz/${mode}/${dificult}`;
     // Redirect to the quiz page with the extracted parameter
@@ -40,16 +37,18 @@ app.get("/clkvalue/:mode/:dificult", (req, res) => {
 app.get("/quiz/:mode/:dificulty", (req, res) => {
   const { mode } = req.params;
   const { dificulty } = req.params;
-  console.log(mode, dificulty);
   res.sendFile(__dirname + `/quiz.html`);
 });
 
 //quiz.html
-app.get("/result", (req, res) => {
-  res.sendFile(__dirname + "/result.html");
-});
+app.get("/result/:paraMode/:paraDifucult",(req,res)=>{
+  const { paraMode } = req.params;
+  const { paraDifucult } = req.params;
+  res.sendFile(__dirname+"/result.html");
+})
 
-app.get("/rank", (req, res) => {
+//result.html
+app.get("/rank/:mode/:dificult", (req, res) => {
   res.sendFile(__dirname + "/rank.html");
 });
 
@@ -71,6 +70,7 @@ app.post("/resultData", (req, res) => {
   res.sendStatus(200);
 });
 
+//rank.html
 app.post("/rank/:difficulty", (req, res) => {
   const difficulty = req.params.difficulty;
   let db = new sqlite3.Database("quiz.db");

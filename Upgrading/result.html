@@ -18,13 +18,15 @@
       <button type="submit" onclick="submit()">submit</button>
     </div>
   </body>
+
   <script>
-    document.getElementById("score").innerHTML =
-      localStorage.getItem("resultScore");
+    const xhr = new XMLHttpRequest();
+    var score, userName;
+    document.getElementById("score").innerHTML = localStorage.getItem("resultScore");
 
     function submit() {
-      var score = document.getElementById("score").textContent;
-      var userName = document.getElementById("userName").value;
+      score = document.getElementById("score").textContent;
+      userName = document.getElementById("userName").value;
       fetch("/resultData", {
         method: "POST",
         headers: {
@@ -33,11 +35,9 @@
         body: JSON.stringify({ score, userName }),
       })
         .then((response) => {
-          console.log("Data sent to server");
-          const xhr = new XMLHttpRequest();
-          xhr.open("GET", "/rank");
+          xhr.open("GET", "/rank/rank");
           xhr.send();
-          window.location.href = "/rank";
+          window.location.href = "/rank/rank";
         })
         .catch((error) => {
           console.error("Error sending data to server:", error);

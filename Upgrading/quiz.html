@@ -13,9 +13,10 @@
       <h1>Color Master</h1>
     </header>
 
-    <div class="time" class="hidden">
-      <p id="time">⌛GOGO⌛</p>
+    <div class="time">
+      <p id="time" class="hidden">⌛GOGO⌛</p>
     </div>
+    <div class="life"><p id="life" class="hidden">3</p></div>
     <div class="score">
       <p>score:</p>
       <p id="score">0</p>
@@ -43,6 +44,14 @@
         //CheckingMode.
         var time = 10;
         var life = 3;
+        //
+        var score;
+        //Send a URL to next html.
+        const paraURL = window.location.pathname;
+        const parts = paraURL.split(/\/+/);
+        const paraMode = parts[parts.length - 2];
+        const paraDificult = parts[parts.length - 1];
+        console.log(paraDificult, paraMode);
 
         //Generate a rgb to apply in css.
         color = () => {
@@ -54,20 +63,17 @@
 
         //Checking over css rgb value.
         rOverMax = () => {
-          return ((r + modeNum) > 255)? (r - modeNum):(r + modeNum)
+          return r + modeNum > 255 ? r - modeNum : r + modeNum;
         };
         gOverMax = () => {
-          return ((g + modeNum) > 255)? (g - modeNum):(g + modeNum)
+          return g + modeNum > 255 ? g - modeNum : g + modeNum;
         };
         bOverMax = () => {
-          return ((b + modeNum) > 255)? (b - modeNum):(b + modeNum)
+          return b + modeNum > 255 ? b - modeNum : b + modeNum;
         };
 
+        //Literaly generateUniqe color
         generateUnique = () => {
-          console.log(rOverMax(), rgb);
-          console.log(gOverMax(), rgb);
-          console.log(bOverMax(), rgb);
-
           return (
             "rgb(" +
             (rOverMax() % 256) +
@@ -81,21 +87,47 @@
 
         //Plus a score by checking the mode. also active action.
         select = (current) => {
-          var score = Number(document.getElementById("score").innerHTML);
+          score = Number(document.getElementById("score").innerHTML);
 
+          //Update score & Control lifeMode.
           if (current.classList.contains("unique")) {
-            document.getElementById("score").innerHTML = score + 7;              
+            document.getElementById("score").innerHTML = score + corectValue;
+          } else {
+            life -= 1;
+            if (life < 1) {
+              fetch("/result");
+              // Create an XMLHttpRequest object
+              const xhr = new XMLHttpRequest();
+
+              // Define the GET request
+              xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
+
+              // Set the onload event handler
+              xhr.onload = function () {
+                console.log(xhr.status);
+                // Check if the request was successful
+                if (xhr.status === 200) {
+                  // Redirect to result.html
+                  window.location.href = `/result/${paraMode}/${paraDificult}`;
+                } else {
+                  // Handle the error case
+                  console.error("Error:", xhr.status);
+                }
+              };
+
+              // Send the request
+              xhr.send();
+            } else {
+              document.getElementById("life").innerHTML = life;
+            }
           }
-          if (currentURL.includes("3life")) {
-            life-=1;
-          }
-          
-          //Changethe unique selection.
+
+          //Change the unique selection.
           unique[0].classList.remove("unique");
           uniqueClassNum = Math.floor(Math.random() * common.length);
           common[uniqueClassNum].classList.add("unique");
 
-          //Change ther color.
+          //Change the color.
           rgb = color(r, g, b);
           for (var i = 0; i < common.length; i++) {
             common[i].style.backgroundColor = rgb;
@@ -103,7 +135,7 @@
           unique[0].style.backgroundColor = generateUnique(r, g, b, modeNum);
         };
 
-        //Checking current dificult
+        //Modifing by current dificult.
         if (currentURL.includes("easy")) {
           modeNum = 127;
           corectValue = 7;
@@ -115,32 +147,41 @@
           corectValue = 15;
         }
 
-        //CheckingMode
+        //CheckingMode.
         if (currentURL.includes("10sec")) {
           var timeElement = document.getElementById("time");
-          timeElement.classList.remove("hideden");
+          timeElement.classList.remove("hidden");
           const countdown = setInterval(() => {
             timeElement.innerText = time;
             time--;
             if (time < 0) {
               clearInterval(countdown);
-              var score = document.getElementById("score").innerHTML;
-              localStorage.setItem("resultScore", score);
+              // Create an XMLHttpRequest object
               const xhr = new XMLHttpRequest();
-              xhr.open("GET", "/result");
+
+              // Define the GET request
+              xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
+
+              // Set the onload event handler
+              xhr.onload = function () {
+                // Check if the request was successful
+                if (xhr.status === 200) {
+                  console.log(xhr.status);
+                  // Redirect to result.html
+                  window.location.href = `/result/${paraMode}/${paraDificult}`;
+                } else {
+                  // Handle the error case
+                  console.error("Error:", xhr.status);
+                }
+              };
+
+              // Send the request
               xhr.send();
-              window.location.href = "/result";
             }
           }, 1000);
         } else if (currentURL.includes("3life")) {
           var lifeElement = document.getElementById("life");
           lifeElement.classList.remove("hidden");
-          if (life <1 ) {
-            const xhr = new XMLHttpRequst();
-            xhr.open("GET", "/result");
-            xhr.send();
-            window.location.href="/result";
-          }
         }
 
         //Apply color.
