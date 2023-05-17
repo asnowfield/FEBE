@@ -13,7 +13,7 @@
       <h1>Color Master</h1>
     </header>
 
-    <div class="time">
+    <div class="time" class="hidden">
       <p id="time">⌛GOGO⌛</p>
     </div>
     <div class="score">
@@ -33,88 +33,58 @@
       <script>
         //check dificult by URL
         var currentURL = window.location.href;
-        var dificult;
-        if (currentURL.includes("easy")) {
-          dificult = "ez";
-        } else if (currentURL.includes("normal")) {
-          dificult = "nm";
-        } else {
-          dificult = "hd";
-        }
-
+        var dificult, modeNum, corectValue;
         var common = document.getElementsByClassName("common");
-
-        //Setting per mode plus score.
-        const EZNUM = 127;
-        const NMNUM = 63;
-        const HDNUM = 31;
-
-        var r, g, b, rgb;
-
+        var r, g, b, rgb, uniRGB;
         //Generate a unique selection.
         var uniqueClassNum = Math.floor(Math.random() * common.length);
         common[uniqueClassNum].classList.add("unique");
         var unique = document.getElementsByClassName("unique");
+        //CheckingMode.
+        var time = 10;
+        var life = 3;
 
         //Generate a rgb to apply in css.
-        color = (r, g, b) => {
+        color = () => {
           r = Math.floor(Math.random() * 256); // generates a random value for red (0-255)
           g = Math.floor(Math.random() * 256); // generates a random value for green (0-255)
           b = Math.floor(Math.random() * 256); // generates a random value for blue (0-255)
           return "rgb(" + r + "," + g + "," + b + ")";
         };
 
-        generateUnique = (red, gre, blu, modeValue) => {
-          console.log(red + modeValue);
-          console(modeValue);
+        //Checking over css rgb value.
+        rOverMax = () => {
+          return ((r + modeNum) > 255)? (r - modeNum):(r + modeNum)
+        };
+        gOverMax = () => {
+          return ((g + modeNum) > 255)? (g - modeNum):(g + modeNum)
+        };
+        bOverMax = () => {
+          return ((b + modeNum) > 255)? (b - modeNum):(b + modeNum)
+        };
+
+        generateUnique = () => {
+          console.log(rOverMax(), rgb);
+          console.log(gOverMax(), rgb);
+          console.log(bOverMax(), rgb);
+
           return (
             "rgb(" +
-            ((red + modeValue) % 256) +
+            (rOverMax() % 256) +
             "," +
-            ((gre + modeValue) % 256) +
+            (gOverMax() % 256) +
             "," +
-            ((blu + modeValue) % 256) +
+            (bOverMax() % 256) +
             ")"
           );
         };
 
-        //Apply color.
-        rgb = color(r, g, b);
-        console.log(rgb + "rgb");
-        for (var i = 0; i < common.length; i++) {
-          common[i].style.backgroundColor = rgb;
-        }
-
-        if (dificult == "ez") {
-          const uniRGB = generateUnique(r, g, b, EZNUM);
-        } else if (dificult == "nm") {
-          const uniRGB = generateUnique(r, g, b, NMNUM);
-        } else {
-          const uniRGB = generateUnique(r, g, b, HDNUM);
-        }
-        unique[0].style.backgroundColor = uniRGB;
-
         //Plus a score by checking the mode. also active action.
-        select = (
-          current,
-          uniqueR,
-          uniqueG,
-          uniqueB,
-          uniqeRGB,
-          r,
-          g,
-          b,
-          rgb
-        ) => {
+        select = (current) => {
           var score = Number(document.getElementById("score").innerHTML);
+
           if (current.classList.contains("unique")) {
-            if (dificult == "ez") {
-              document.getElementById("score").innerHTML = score + 7;
-            } else if (dificult == "nm") {
-              document.getElementById("score").innerHTML = score + 10;
-            } else if (dificult == "hd") {
-              document.getElementById("score").innerHTML = score + 15;
-            }
+            document.getElementById("score").innerHTML = score + 7;
           }
 
           //Changethe unique selection.
@@ -128,54 +98,50 @@
             common[i].style.backgroundColor = rgb;
           }
 
-          if (dificult == "ez") {
-            unique[0].style.backgroundColor = generateUnique(
-              uniqueR,
-              uniqueG,
-              uniqueB,
-              r,
-              g,
-              b,
-              EZNUM
-            );
-          } else if (dificult == "nm") {
-            unique[0].style.backgroundColor = generateUnique(
-              uniqueR,
-              uniqueG,
-              uniqueB,
-              r,
-              g,
-              b,
-              NMNUM
-            );
-          } else {
-            unique[0].style.backgroundColor = generateUnique(
-              uniqueR,
-              uniqueG,
-              uniqueB,
-              r,
-              g,
-              b,
-              HDNUM
-            );
-          }
+          unique[0].style.backgroundColor = generateUnique(r, g, b, modeNum);
         };
 
-        const timeElement = document.getElementById("time");
-        let time = 10;
-        const countdown = setInterval(() => {
-          timeElement.innerText = time;
-          time--;
-          if (time < 0) {
-            clearInterval(countdown);
-            var score = document.getElementById("score").innerHTML;
-            localStorage.setItem("resultScore", score);
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/result");
-            xhr.send();
-            window.location.href = "/result";
-          }
-        }, 1000);
+        //Checking current dificult
+        if (currentURL.includes("easy")) {
+          modeNum = 127;
+          corectValue = 7;
+        } else if (currentURL.includes("normal")) {
+          modeNum = 63;
+          corectValue = 10;
+        } else {
+          modeNum = 31;
+          corectValue = 15;
+        }
+
+        //CheckingMode
+        if (currentURL.includes("3life")) {
+          var timeElement = document.getElementById("time");
+          timeElement.classList.remove("hideden");
+          const countdown = setInterval(() => {
+            timeElement.innerText = time;
+            time--;
+            if (time < 0) {
+              clearInterval(countdown);
+              var score = document.getElementById("score").innerHTML;
+              localStorage.setItem("resultScore", score);
+              const xhr = new XMLHttpRequest();
+              xhr.open("GET", "/result");
+              xhr.send();
+              window.location.href = "/result";
+            }
+          }, 1000);
+        } else if (currentURL.includes("10sec")) {
+          var lifeElement = document.getElementById("life");
+          lifeElement.classList.remove("hidden");
+        }
+
+        //Apply color.
+        rgb = color(r, g, b);
+        for (var i = 0; i < common.length; i++) {
+          common[i].style.backgroundColor = rgb;
+        }
+        uniRGB = generateUnique(r, g, b, modeNum);
+        unique[0].style.backgroundColor = uniRGB;
       </script>
     </footer>
   </body>
