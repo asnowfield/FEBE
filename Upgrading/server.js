@@ -2,10 +2,12 @@ const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
+
 const app = express();
 const port = 8080;
+
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static("static"));
 //To index.html
 app.get("/", (req, res) => {
@@ -35,16 +37,12 @@ app.get("/clkvalue/:mode/:dificult", (req, res) => {
   }
 });
 app.get("/quiz/:mode/:dificulty", (req, res) => {
-  const { mode } = req.params;
-  const { dificulty } = req.params;
   res.sendFile(__dirname + `/quiz.html`);
 });
 
 //quiz.html
-app.get("/result/:paraMode/:paraDifucult",(req,res)=>{
-  const { paraMode } = req.params;
-  const { paraDifucult } = req.params;
-  res.sendFile(__dirname+"/result.html");
+app.get("/result/:paraMode/:paraDifucult", (req, res) => {
+  res.sendFile(__dirname + "/result.html");
 })
 
 //result.html
@@ -52,14 +50,15 @@ app.get("/rank/:mode/:dificult", (req, res) => {
   res.sendFile(__dirname + "/rank.html");
 });
 
-app.post("/resultData", (req, res) => {
+app.post("/resultData/:mode/:dificult", (req, res) => {
+  const { mode, dificult } = req.params;
   var score = req.body.score;
   var userName = req.body.userName;
   let db = new sqlite3.Database("quiz.db");
   db.run(
-    `INSERT INTO quizDB (score, userName) VALUES (?, ?)`,
-    [score, userName],
-    function (err) {
+    `INSERT INTO "${mode}" (score, userName, difficulty) VALUES (?, ?, ?)`,
+    [score, userName, dificult],
+    (err) => {
       if (err) {
         return console.log(err.message);
       }
@@ -70,23 +69,16 @@ app.post("/resultData", (req, res) => {
   res.sendStatus(200);
 });
 
+
 //rank.html
-app.post("/rank/:difficulty", (req, res) => {
-  const difficulty = req.params.difficulty;
+app.post("/rank/:mode/:difficulty", (req, res) => {
+  const { mode, difficulty } = req.params;
   let db = new sqlite3.Database("quiz.db");
-  let tableName = "";
 
   // Determine the table name based on the difficulty
-  if (difficulty === "ez") {
-    tableName = "easyTable";
-  } else if (difficulty === "nm") {
-    tableName = "normalTable";
-  } else {
-    tableName = "hardTable";
-  }
-
   db.all(
-    "SELECT userName, score FROM " + tableName + " ORDER BY score DESC LIMIT 3",
+    `SELECT userName, score FROM "${mode}" WHERE difficulty = ? ORDER BY score DESC LIMIT 3 `,
+    [difficulty],
     (err, rows) => {
       if (err) {
         console.error(err.message);

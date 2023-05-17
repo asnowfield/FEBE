@@ -51,7 +51,6 @@
         const parts = paraURL.split(/\/+/);
         const paraMode = parts[parts.length - 2];
         const paraDificult = parts[parts.length - 1];
-        console.log(paraDificult, paraMode);
 
         //Generate a rgb to apply in css.
         color = () => {
@@ -114,7 +113,7 @@
                   console.error("Error:", xhr.status);
                 }
               };
-
+              localStorage.setItem("resultScore", score);
               // Send the request
               xhr.send();
             } else {
@@ -174,7 +173,7 @@
                   console.error("Error:", xhr.status);
                 }
               };
-
+              localStorage.setItem("resultScore", score);
               // Send the request
               xhr.send();
             }

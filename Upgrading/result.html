@@ -17,17 +17,30 @@
       <input type="text" id="userName" placeholder="NAME IT! WHO IS HE!" />
       <button type="submit" onclick="submit()">submit</button>
     </div>
+    <div>
+      <button onclick="again()">Try again?</button>
+    </div>
+    <div>
+      <button onclick="home()">To home</button>
+    </div>
   </body>
 
   <script>
-    const xhr = new XMLHttpRequest();
     var score, userName;
-    document.getElementById("score").innerHTML = localStorage.getItem("resultScore");
 
-    function submit() {
-      score = document.getElementById("score").textContent;
+    //To extrat try again params
+    const paraURL = window.location.pathname;
+    const parts = paraURL.split(/\/+/);
+    const paraMode = parts[parts.length - 2];
+    const paraDificult = parts[parts.length - 1];
+
+    document.getElementById("score").innerHTML =
+      localStorage.getItem("resultScore");
+
+    submit = () => {
+      score = localStorage.getItem("resultScore");
       userName = document.getElementById("userName").value;
-      fetch("/resultData", {
+      fetch(`/resultData/${paraMode}/${paraDificult}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,13 +48,19 @@
         body: JSON.stringify({ score, userName }),
       })
         .then((response) => {
-          xhr.open("GET", "/rank/rank");
-          xhr.send();
-          window.location.href = "/rank/rank";
+          window.location.href = `/rank/${paraMode}/${paraDificult}`;
         })
         .catch((error) => {
           console.error("Error sending data to server:", error);
         });
+    };
+
+    again = () => {
+      window.location.href = `/quiz/${paraMode}/${paraDificult}`;
+    };
+
+    home = () => {
+      window.location.href = `/`
     }
   </script>
 </html>

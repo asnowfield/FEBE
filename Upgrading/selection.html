@@ -19,17 +19,17 @@
       <button type="button" id="startButton">Start</button>
     </form>
     <div class="rankframe">
-      <button id="">
+      <button id="" onclick="easyRank()">
         <div>
           <span>Easy Rank</span>
         </div>
       </button>
-      <button id="">
+      <button id="" onclick="normalRank()">
         <div>
           <span>Normal Rank</span>
         </div>
       </button>
-      <button id="">
+      <button id="" onclick="hardRank()">
         <div>
           <span>Hard Rank</span>
         </div>
@@ -49,18 +49,15 @@
           window.location.href = url;
         });
 
-        const hdButton = document.getElementById("hdRankButton");
-        const nmButton = document.getElementById("nmRankButton");
-        const ezButton = document.getElementById("ezRankButton");
-        hdRankButton.addEventListener("click", () => {
-          sendRequest("hd");
-        });
-        nmRankButton.addEventListener("click", () => {
-          sendRequest("nm");
-        });
-        ezRankButton.addEventListener("click", () => {
-          sendRequest("ez");
-        });
+        easyRank=()=>{
+          window.location.href =`/rank/${mode}/easy`;
+        }
+        normalRank=()=>{
+          window.location.href =`/rank/${mode}/normal`;
+        }
+        hardRank=()=>{
+          window.location.href =`/rank/${mode}/hard`;
+        }
       </script>
     </footer>
   </body>

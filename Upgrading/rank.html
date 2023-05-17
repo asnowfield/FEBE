@@ -1,60 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/rank.css" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/rank.css" />
-  <title>Document</title>
-</head>
+  <body>
+    <header>
+      <h1>🏆🎖Who is the BEST!🎖🏆</h1>
+    </header>
+    <div class="frame">
+      <p id="scores"></p>
+    </div>
+    <div>
+      <button onclick="home()">go Home</button>
+    </div>
 
-<body>
-  <header>
-    <h1>🏆🎖Who is the BEST!🎖🏆</h1>
-  </header>
-  <div class="frame">
-    <p id="scores"></p>
-  </div>
+    <script>
+      var xhr = new XMLHttpRequest();
+      const paraURL = window.location.pathname;
+      const parts = paraURL.split(/\/+/);
+      const paraMode = parts[parts.length - 2];
+      const paraDificult = parts[parts.length - 1];
 
-  <script>
-    var currentURL = window.location.href
-    if ((currentURL).includes('ez')) {
-      var dificulty = 'ez'
-      var url = "/rank/" + dificulty;
-    } else if ((currentURL).includes('nm')) {
-      var dificulty = 'nm'
-      var url = "/rank/" + dificulty;
-    } else {
-      var dificulty = 'hd'
-      var url = "/rank/" + dificulty;
-    }
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", url, true);
-
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        // Parse the response JSON and add the rows to the HTML page
-        var data = JSON.parse(xhr.responseText);
-        var scoresDiv = document.getElementById("scores");
-        data.forEach(function (row) {
-          var div = document.createElement("div");
-          div.innerHTML = row.userName + ": " + row.score;
-          scoresDiv.appendChild(div);
-        });
-      } else {
+      xhr.open("POST", `/rank/${paraMode}/${paraDificult}`, true);
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // Parse the response JSON and add the rows to the HTML page
+          var data = JSON.parse(xhr.responseText);
+          var scoresDiv = document.getElementById("scores");
+          data.forEach((row) => {
+            var div = document.createElement("div");
+            div.innerHTML = row.userName + ": " + row.score;
+            scoresDiv.appendChild(div);
+          });
+        } else {
+          console.error(xhr.statusText);
+        }
+      };
+      xhr.onerror = () => {
         console.error(xhr.statusText);
-      }
-    };
+      };
+      xhr.send();
 
-    xhr.onerror = function () {
-      console.error(xhr.statusText);
-    };
-
-    xhr.send();
-  </script>
-</body>
-
+      home = () => {
+        window.location.href = `/`;
+      };
+    </script>
+  </body>
 </html>
