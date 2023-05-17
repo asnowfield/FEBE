@@ -31,7 +31,7 @@
 ---
 
 # TODO
-1. 난이도 조절 값 설정.
+1. Upgrading start.html.
 2. index.html에서 rank.html로 이동 버튼.
 3. rank.html 에서 index.html로 이동 버튼.
 4. UI, UX 조정.
@@ -39,15 +39,17 @@
 6. upgrade head.
 7. 10second speed run.
 8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
-9. start.html.
-10. score index to button.
-11. MEMber, delete score? 
-12. if user is a member, than score maintiained in forever perhaps delete score. anonymous score get delete in 24hours.
-13. pop cat처럼 귀여운거로 하기? It'll take some time.
-14. ip로 국가 확인해서 국가 붙이기.
-15. name can be Null.
+9. ip로 국가 확인해서 국가 붙이기.
+10. score => index to button.
+11. name can be Null.
+
+# Big part.
+1. MEMber, delete score? 
+2. if user is a member, than score maintiained in forever perhaps delete score. anonymous score get delete in 24hours.
+3. pop cat처럼 귀여운거로 하기? It'll take some time.
 
 
 # Done 
 1. Index.html에서 난이도별 rank.html 이동 버튼.
 2. N datatables vs one datatable that has one more column. chose N tables.
+3. Fix Color funtion that over 255.
