@@ -79,10 +79,8 @@ app.post("/rank/:difficulty", (req, res) => {
   // Determine the table name based on the difficulty
   if (difficulty === "ez") {
     tableName = "easyTable";
-    console.log("ez");
   } else if (difficulty === "nm") {
     tableName = "normalTable";
-    console.log("nm");
   } else {
     tableName = "hardTable";
   }
