@@ -39,6 +39,7 @@
 6. hell mode.
 7. window size.
 8. Interactive select mode.
+9. window.litem if press key
 
 # Big part.
 1. MEMber, delete score? 
