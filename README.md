@@ -42,6 +42,8 @@
 9. ip로 국가 확인해서 국가 붙이기.
 10. score => index to button.
 11. name can be Null.
+12. hell mode.
+13. window size.
 
 # Big part.
 1. MEMber, delete score? 
