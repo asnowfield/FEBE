@@ -33,7 +33,6 @@
     <footer>
       <script>
         //check dificult by URL
-        var currentURL = window.location.href;
         var dificult, modeNum, corectValue;
         var common = document.getElementsByClassName("common");
         var r, g, b, rgb, uniRGB;
@@ -44,13 +43,14 @@
         //CheckingMode.
         var time = 10;
         var life = 3;
-        //
         var score;
         //Send a URL to next html.
         const paraURL = window.location.pathname;
         const parts = paraURL.split(/\/+/);
         const paraMode = parts[parts.length - 2];
         const paraDificult = parts[parts.length - 1];
+        // Create an XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
 
         //Generate a rgb to apply in css.
         color = () => {
@@ -90,34 +90,37 @@
 
           //Update score & Control lifeMode.
           if (current.classList.contains("unique")) {
-            document.getElementById("score").innerHTML = score + corectValue;
+            score += corectValue;
+            document.getElementById("score").innerHTML = score;
+            localStorage.setItem("resultScore", score);
           } else {
-            life -= 1;
-            if (life < 1) {
-              fetch("/result");
-              // Create an XMLHttpRequest object
-              const xhr = new XMLHttpRequest();
+            if (paraMode === "3life") {
+              life -= 1;
+              if (life < 1) {
+                fetch("/result");
+                // Create an XMLHttpRequest object
+                const xhr = new XMLHttpRequest();
 
-              // Define the GET request
-              xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
+                // Define the GET request
+                xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
 
-              // Set the onload event handler
-              xhr.onload = function () {
-                console.log(xhr.status);
-                // Check if the request was successful
-                if (xhr.status === 200) {
-                  // Redirect to result.html
-                  window.location.href = `/result/${paraMode}/${paraDificult}`;
-                } else {
-                  // Handle the error case
-                  console.error("Error:", xhr.status);
-                }
-              };
-              localStorage.setItem("resultScore", score);
-              // Send the request
-              xhr.send();
-            } else {
-              document.getElementById("life").innerHTML = life;
+                // Set the onload event handler
+                xhr.onload = function () {
+                  console.log(xhr.status);
+                  // Check if the request was successful
+                  if (xhr.status === 200) {
+                    // Redirect to result.html
+                    window.location.href = `/result/${paraMode}/${paraDificult}`;
+                  } else {
+                    // Handle the error case
+                    console.error("Error:", xhr.status);
+                  }
+                };
+                // Send the request
+                xhr.send();
+              } else {
+                document.getElementById("life").innerHTML = life;
+              }
             }
           }
 
@@ -135,10 +138,10 @@
         };
 
         //Modifing by current dificult.
-        if (currentURL.includes("easy")) {
+        if (paraDificult === "easy") {
           modeNum = 127;
           corectValue = 7;
-        } else if (currentURL.includes("normal")) {
+        } else if (paraDificult === "normal") {
           modeNum = 63;
           corectValue = 10;
         } else {
@@ -147,7 +150,7 @@
         }
 
         //CheckingMode.
-        if (currentURL.includes("10sec")) {
+        if (paraMode === "10sec") {
           var timeElement = document.getElementById("time");
           timeElement.classList.remove("hidden");
           const countdown = setInterval(() => {
@@ -155,9 +158,6 @@
             time--;
             if (time < 0) {
               clearInterval(countdown);
-              // Create an XMLHttpRequest object
-              const xhr = new XMLHttpRequest();
-
               // Define the GET request
               xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
 
@@ -173,12 +173,11 @@
                   console.error("Error:", xhr.status);
                 }
               };
-              localStorage.setItem("resultScore", score);
               // Send the request
               xhr.send();
             }
           }, 1000);
-        } else if (currentURL.includes("3life")) {
+        } else if (paraMode === "3life") {
           var lifeElement = document.getElementById("life");
           lifeElement.classList.remove("hidden");
         }
