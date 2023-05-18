@@ -32,18 +32,13 @@
 
 # TODO
 1. Upgrading start.html.
-2. index.html에서 rank.html로 이동 버튼.
-3. rank.html 에서 index.html로 이동 버튼.
-4. UI, UX 조정.
-5. add meta.
-6. upgrade head.
-7. 10second speed run.
-8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
-9. ip로 국가 확인해서 국가 붙이기.
-10. score => index to button.
-11. name can be Null.
-12. hell mode.
-13. window size.
+2. 
+3. Adjust UI, UX.
+4. add meta.
+5. Sort a country by IP address.
+6. hell mode.
+7. window size.
+8. Interactive select mode.
 
 # Big part.
 1. MEMber, delete score? 
@@ -55,3 +50,9 @@
 1. Index.html에서 난이도별 rank.html 이동 버튼.
 2. N datatables vs one datatable that has one more column. chose N tables.
 3. Fix Color funtion that over 255.
+4. index.html에서 rank.html로 이동 버튼.
+5. rank.html 에서 index.html로 이동 버튼.
+7. 10second speed run.
+11. name can be Null.
+10. score => index to button.
+8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
