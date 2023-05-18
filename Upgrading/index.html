@@ -12,8 +12,21 @@
       <h1>Color Master</h1>
     </header>
     <div>
-      <div><a href="/3life">3❤️Server</a></div>
-      <div><a href="/10sec">10sec⌛Server</a></div>
+      <button onclick="lifeMode()">3❤️Server</button>
+      <button onclick="secMode()">10sec⌛Server</button>
+      <button onclick="ipcheck()">ipcheck</button>
     </div>
   </body>
-</html>
+<script>
+  lifeMode=()=>{
+    window.location.href =`/3life`;
+  }
+  secMode=()=>{
+    window.location.href =`/10sec`;
+  }
+  ipcheck=()=>{
+    window.location.href =`/check/ip`;
+  }
+</script>
+  </html>
+

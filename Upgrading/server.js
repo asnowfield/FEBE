@@ -1,5 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
+const geoip = require('geoip-lite');
 const express = require("express");
 const cors = require("cors");
 
@@ -92,6 +93,20 @@ app.post("/rank/:mode/:difficulty", (req, res) => {
   );
 });
 
+app.get("/check/ip", (req, res) => {
+  const ip = req.ip
+  const geo = geoip.lookup(ip);
+  if (geo) {
+    const country = geo.country;
+    console.log('Country:', country);
+    res.sendFile(__dirname + "/index.html");
+  } else {
+    console.log("notFound")
+    res.sendFile(__dirname + "/index.html");
+  }
+})
+
 app.listen(port, () => {
   console.log("serverOn");
 });
+
