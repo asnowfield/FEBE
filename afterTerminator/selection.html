@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/index.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Color Master</h1>
+    </header>
+    <form id="difficultyForm">
+      <input
+        type="radio"
+        name="difficulty"
+        value="easy"
+        id="easy"
+        onclick="checkRadio()"
+      /><label for="easy">Easy</label>
+      <input
+        type="radio"
+        name="difficulty"
+        value="normal"
+        id="normal"
+        onclick="checkRadio()"
+      /><label for="normal">Normal</label>
+      <input
+        type="radio"
+        name="difficulty"
+        value="hard"
+        id="hard"
+        onclick="checkRadio()"
+      /><label for="hard">Hard</label>
+      <input
+        type="radio"
+        name="difficulty"
+        value="terminator"
+        id="terminator"
+        onclick="checkRadio()"
+      /><label for="terminator">Terminator</label>
+      <button type="button" id="startButton">Start</button>
+    </form>
+    <div class="rankframe">
+      <button id="" onclick="easyRank()">
+        <div>
+          <span>Easy Rank</span>
+        </div>
+      </button>
+      <button id="" onclick="normalRank()">
+        <div>
+          <span>Normal Rank</span>
+        </div>
+      </button>
+      <button id="" onclick="hardRank()">
+        <div>
+          <span>Hard Rank</span>
+        </div>
+      </button>
+      <button id="" onclick="terminatorRank()">
+        <div>
+          <span>terminator Rank</span>
+        </div>
+      </button>
+    </div>
+    <img id="easyImg" src="/easy.webp" style="display: none" />
+    <img id="normalImg" src="/normal.webp" style="display: none" />
+    <img id="hardImg" src="/hard.webp" style="display: none" />
+    <img id="terminatorImg" src="/terminator.webp" style="display: none" />
+
+    <footer>
+      <script>
+        const currentURL = window.location.pathname; // Get the current URL path
+        const link = document.getElementById("myLink"); // Get the link element by its ID
+        const mode = currentURL.substring(1); // Remove the leading slash from the current URL
+        const difficultyForm = document.getElementById("difficultyForm");
+        const startButton = document.getElementById("startButton");
+
+        checkRadio = () => {
+          const difficultyRadios = document.getElementsByName("difficulty");
+          const images = document.querySelectorAll("img");
+
+          images.forEach((img) => {
+            img.style.display = "none";
+          });
+
+          difficultyRadios.forEach((radio) => {
+            if (radio.checked) {
+              const imgId = radio.id + "Img";
+              const correspondingImg = document.getElementById(imgId);
+              if (correspondingImg) {
+                correspondingImg.style.display = "block";
+              }
+            }
+          });
+        };
+
+        startButton.addEventListener("click", () => {
+          const dificult = difficultyForm.querySelector(
+            'input[name="difficulty"]:checked'
+          ).value;
+          const url = `/clkvalue/${mode}/${dificult}`;
+          window.location.href = url;
+        });
+
+        easyRank = () => {
+          window.location.href = `/rank/${mode}/easy`;
+        };
+        normalRank = () => {
+          window.location.href = `/rank/${mode}/normal`;
+        };
+        hardRank = () => {
+          window.location.href = `/rank/${mode}/hard`;
+        };
+        terminatorRank = () => {
+          window.location.href = `/rank/${mode}/terminator`;
+        };
+      </script>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="modeForm">
+      <input type="radio" name="mode" value="easy" /> Easy
+      <input type="radio" name="mode" value="normal" /> Normal
+      <input type="radio" name="mode" value="hard" /> Hard
+      <button type="button" id="startButton">Start</button>
+    </form>
+  </body>
+  <footer>
+    <script>
+      const modeForm = document.getElementById("modeForm");
+      const startButton = document.getElementById("startButton");
+
+      startButton.addEventListener("click", () => {
+        const selectedMode = modeForm.querySelector(
+          'input[name="mode"]:checked'
+        ).value;
+        if (difficulty) {
+          const url = `/clkvalue/${selectedMode}`;
+          window.location.href = url;
+        }
+      });
+    </script>
+  </footer>
+</html>
