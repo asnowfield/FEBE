@@ -4,30 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/quiz.css" />
+    <link rel="stylesheet" href="/css/quiz.css" />
     <title>Document</title>
   </head>
 
   <body>
     <header>
-      <h1>Color Master</h1>
+      <h1><a href="/">Color Master</a></h1>
     </header>
 
     <div class="time">
       <p id="time" class="hidden">⌛GOGO⌛</p>
     </div>
-    <div class="life"><p id="life" class="hidden">3</p></div>
+    <div class="life">
+      <p>Life:</p>
+      <p id="life" class="hidden">❤️‍🔥❤️‍🔥❤️‍🔥</p>
+    </div>
     <div class="score">
       <p>score:</p>
       <p id="score">0</p>
     </div>
     <div class="box">
-      <div class="common" id="element1" onclick="select(this)">1</div>
-      <div class="common" id="element2" onclick="select(this)">2</div>
-      <div class="common" id="element3" onclick="select(this)">3</div>
-      <div class="common" id="element4" onclick="select(this)">4</div>
-      <div class="common" id="element5" onclick="select(this)">5</div>
-      <div class="common" id="element6" onclick="select(this)">6</div>
+      <div class="common" id="element1" onclick="select(this)"><p>1</p></div>
+      <div class="common" id="element2" onclick="select(this)"><p>2</p></div>
+      <div class="common" id="element3" onclick="select(this)"><p>3</p></div>
+      <div class="common" id="element4" onclick="select(this)"><p>4</p></div>
+      <div class="common" id="element5" onclick="select(this)"><p>5</p></div>
+      <div class="common" id="element6" onclick="select(this)"><p>6</p></div>
     </div>
 
     <footer>
@@ -42,7 +45,10 @@
         var unique = document.getElementsByClassName("unique");
         //CheckingMode.
         var time = 10;
-        var life = 3;
+        var emoji = "❤️‍🔥";
+        var sentence = document.getElementById("life").textContent;
+        var life;
+
         var score = 0;
         localStorage.setItem("resultScore", score);
         //Send a URL to next html.
@@ -53,7 +59,7 @@
         // Create an XMLHttpRequest object
         const xhr = new XMLHttpRequest();
 
-        //Desktop window function.
+        //Keyboard function.
         document.addEventListener("keydown", function (event) {
           const key = parseInt(event.key, 10);
           if (key >= 1 && key <= 6) {
@@ -64,6 +70,20 @@
             }
           }
         });
+
+        //Literally minus one life.
+        minusLife = () => {
+          document.getElementById("life").textContent = sentence.replace(
+            new RegExp(emoji),
+            ""
+          );
+          sentence = document.getElementById("life").textContent;
+        };
+
+        //Literally check life.
+        checkLife = () => {
+          life = (sentence.match(new RegExp(emoji, "g")) || []).length;
+        };
 
         //Generate a rgb to apply in css.
         color = () => {
@@ -84,7 +104,7 @@
           return b + modeNum > 255 ? b - modeNum : b + modeNum;
         };
 
-        //Literaly generateUniqe color
+        //Literaly generate Uniqe color
         generateUnique = () => {
           return (
             "rgb(" +
@@ -100,7 +120,6 @@
         //Plus a score by checking the mode. also active action.
         select = (current) => {
           score = Number(document.getElementById("score").innerHTML);
-
           //Update score & Control lifeMode.
           if (current.classList.contains("unique")) {
             score += corectValue;
@@ -108,12 +127,10 @@
             document.getElementById("score").innerHTML = score;
           } else {
             if (paraMode === "3life") {
-              life -= 1;
+              //Minus life.
+              minusLife();
+              checkLife();
               if (life < 1) {
-                fetch("/result");
-                // Create an XMLHttpRequest object
-                const xhr = new XMLHttpRequest();
-
                 // Define the GET request
                 xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
 
@@ -131,8 +148,6 @@
                 };
                 // Send the request
                 xhr.send();
-              } else {
-                document.getElementById("life").innerHTML = life;
               }
             }
           }
@@ -143,11 +158,11 @@
           common[uniqueClassNum].classList.add("unique");
 
           //Change the color.
-          rgb = color(r, g, b);
+          rgb = color();
           for (var i = 0; i < common.length; i++) {
             common[i].style.backgroundColor = rgb;
           }
-          unique[0].style.backgroundColor = generateUnique(r, g, b, modeNum);
+          unique[0].style.backgroundColor = generateUnique();
         };
 
         //Modifing by current dificult.
@@ -199,11 +214,11 @@
         }
 
         //Apply color.
-        rgb = color(r, g, b);
+        rgb = color();
         for (var i = 0; i < common.length; i++) {
           common[i].style.backgroundColor = rgb;
         }
-        uniRGB = generateUnique(r, g, b, modeNum);
+        uniRGB = generateUnique();
         unique[0].style.backgroundColor = uniRGB;
       </script>
     </footer>

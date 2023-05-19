@@ -7,27 +7,21 @@
     <title>Document</title>
   </head>
   <body>
-    <form id="modeForm">
-      <input type="radio" name="mode" value="easy" /> Easy
-      <input type="radio" name="mode" value="normal" /> Normal
-      <input type="radio" name="mode" value="hard" /> Hard
-      <button type="button" id="startButton">Start</button>
-    </form>
+    <p id="sentence">I love coding ❤️‍🔥❤️‍🔥❤️‍🔥</p>
+    <button onclick="removeEmoji()">Remove Emoji</button>
   </body>
   <footer>
     <script>
-      const modeForm = document.getElementById("modeForm");
-      const startButton = document.getElementById("startButton");
+      function removeEmoji() {
+        var sentenceElement = document.getElementById("sentence");
+        var sentence = sentenceElement.textContent;
+        var emojiToRemove = "❤️‍🔥"; // Specify the emoji to remove
 
-      startButton.addEventListener("click", () => {
-        const selectedMode = modeForm.querySelector(
-          'input[name="mode"]:checked'
-        ).value;
-        if (difficulty) {
-          const url = `/clkvalue/${selectedMode}`;
-          window.location.href = url;
+        if (sentence.includes(emojiToRemove)) {
+          var updatedSentence = sentence.replace(new RegExp(emojiToRemove), "");
+          sentenceElement.textContent = updatedSentence;
         }
-      });
+      }
     </script>
   </footer>
 </html>

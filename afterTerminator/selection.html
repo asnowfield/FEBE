@@ -4,71 +4,81 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/css/selection.css" />
     <title>Document</title>
   </head>
 
   <body>
     <header>
-      <h1>Color Master</h1>
+      <h1><a href="/">Color Master</a></h1>
     </header>
     <form id="difficultyForm">
-      <input
-        type="radio"
-        name="difficulty"
-        value="easy"
-        id="easy"
-        onclick="checkRadio()"
-      /><label for="easy">Easy</label>
-      <input
-        type="radio"
-        name="difficulty"
-        value="normal"
-        id="normal"
-        onclick="checkRadio()"
-      /><label for="normal">Normal</label>
-      <input
-        type="radio"
-        name="difficulty"
-        value="hard"
-        id="hard"
-        onclick="checkRadio()"
-      /><label for="hard">Hard</label>
-      <input
-        type="radio"
-        name="difficulty"
-        value="terminator"
-        id="terminator"
-        onclick="checkRadio()"
-      /><label for="terminator">Terminator</label>
+      <div class="selectionContainer">
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="easy"
+            id="easy"
+            onclick="checkRadio()"
+          /><label for="easy">Easy</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="normal"
+            id="normal"
+            onclick="checkRadio()"
+          /><label for="normal">Normal</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="hard"
+            id="hard"
+            onclick="checkRadio()"
+          /><label for="hard">Hard</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="terminator"
+            id="terminator"
+            onclick="checkRadio()"
+          /><label for="terminator">Terminator</label>
+        </div>
+      </div>
       <button type="button" id="startButton">Start</button>
     </form>
     <div class="rankframe">
-      <button id="" onclick="easyRank()">
+      <button class="rank" id="easyRank" onclick="easyRank()">
         <div>
-          <span>Easy Rank</span>
+          <span>😆Easy Rank😆</span>
         </div>
       </button>
-      <button id="" onclick="normalRank()">
+      <button class="rank" id="normalRank" onclick="normalRank()">
         <div>
-          <span>Normal Rank</span>
+          <span>🙂Normal Rank🙂</span>
         </div>
       </button>
-      <button id="" onclick="hardRank()">
+      <button class="rank" id="hardRank" onclick="hardRank()">
         <div>
-          <span>Hard Rank</span>
+          <span>🤨Hard Rank🤨</span>
         </div>
       </button>
-      <button id="" onclick="terminatorRank()">
+      <button class="rank" id="terminatorRank" onclick="terminatorRank()">
         <div>
-          <span>terminator Rank</span>
+          <span>🤖Terminator Rank🤖</span>
         </div>
       </button>
     </div>
-    <img id="easyImg" src="/easy.webp" style="display: none" />
-    <img id="normalImg" src="/normal.webp" style="display: none" />
-    <img id="hardImg" src="/hard.webp" style="display: none" />
-    <img id="terminatorImg" src="/terminator.webp" style="display: none" />
+    <img id="easyImg" src="/img/easy.webp" style="display: none" />
+    <img id="normalImg" src="/img/normal.webp" style="display: none" />
+    <img id="hardImg" src="/img/hard.webp" style="display: none" />
+    <img id="terminatorImg" src="/img/terminator.webp" style="display: none" />
 
     <footer>
       <script>
@@ -91,7 +101,7 @@
               const imgId = radio.id + "Img";
               const correspondingImg = document.getElementById(imgId);
               if (correspondingImg) {
-                correspondingImg.style.display = "block";
+                correspondingImg.style.display = "";
               }
             }
           });
