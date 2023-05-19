@@ -36,10 +36,8 @@
 3. Adjust UI, UX.
 4. add meta.
 5. Sort a country by IP address.
-6. hell mode.
 7. window size.
 8. Interactive select mode.
-9. window.litem if press key
 
 # Big part.
 1. MEMber, delete score? 
@@ -57,3 +55,6 @@
 11. name can be Null.
 10. score => index to button.
 8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
+9. window.litem if press key
+6. terminator mode.
+9. 
