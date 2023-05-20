@@ -13,24 +13,25 @@
       <h1><a href="/">Color Master</a></h1>
     </header>
 
-    <div class="time">
-      <p id="time" class="hidden">⌛GOGO⌛</p>
-    </div>
-    <div class="life">
-      <p>Life:</p>
-      <p id="life" class="hidden">❤️‍🔥❤️‍🔥❤️‍🔥</p>
-    </div>
-    <div class="score">
-      <p>score:</p>
-      <p id="score">0</p>
+    <div class="container">
+      <div class="time">
+        <p id="time" class="item hidden">🏁Time:⏳⏳⏳⏳⏳⏳⏳⏳⏳⏳</p>
+      </div>
+      <div class="life">
+        <p id="life" class="item hidden">🏁Life:❤️‍🔥❤️‍🔥❤️‍🔥</p>
+      </div>
+      <div class="score item">
+        <p>score:</p>
+        <p id="score">0</p>
+      </div>
     </div>
     <div class="box">
-      <div class="common" id="element1" onclick="select(this)"><p>1</p></div>
-      <div class="common" id="element2" onclick="select(this)"><p>2</p></div>
-      <div class="common" id="element3" onclick="select(this)"><p>3</p></div>
-      <div class="common" id="element4" onclick="select(this)"><p>4</p></div>
-      <div class="common" id="element5" onclick="select(this)"><p>5</p></div>
-      <div class="common" id="element6" onclick="select(this)"><p>6</p></div>
+      <div class="common" id="element1" onclick="select(this)"><p class="boxText">1</p></div>
+      <div class="common" id="element2" onclick="select(this)"><p class="boxText">2</p></div>
+      <div class="common" id="element3" onclick="select(this)"><p class="boxText">3</p></div>
+      <div class="common" id="element4" onclick="select(this)"><p class="boxText">4</p></div>
+      <div class="common" id="element5" onclick="select(this)"><p class="boxText">5</p></div>
+      <div class="common" id="element6" onclick="select(this)"><p class="boxText">6</p></div>
     </div>
 
     <footer>
@@ -44,10 +45,12 @@
         common[uniqueClassNum].classList.add("unique");
         var unique = document.getElementsByClassName("unique");
         //CheckingMode.
-        var time = 10;
-        var emoji = "❤️‍🔥";
-        var sentence = document.getElementById("life").textContent;
+        var lifeEmoji = "❤️‍🔥";
+        var timeEmoji = "⏳";
+        var lifeSentence = document.getElementById("life").textContent;
+        var timeSentence = document.getElementById("time").textContent;
         var life;
+        var time;
 
         var score = 0;
         localStorage.setItem("resultScore", score);
@@ -73,16 +76,26 @@
 
         //Literally minus one life.
         minusLife = () => {
-          document.getElementById("life").textContent = sentence.replace(
-            new RegExp(emoji),
+          document.getElementById("life").textContent = lifeSentence.replace(
+            new RegExp(lifeEmoji),
             ""
           );
-          sentence = document.getElementById("life").textContent;
+          lifeSentence = document.getElementById("life").textContent;
+        };
+        minusTime = () => {
+          document.getElementById("time").textContent = timeSentence.replace(
+            new RegExp(timeEmoji),
+            ""
+          );
+          timeSentence = document.getElementById("time").textContent;
         };
 
         //Literally check life.
         checkLife = () => {
-          life = (sentence.match(new RegExp(emoji, "g")) || []).length;
+          life = (lifeSentence.match(new RegExp(lifeEmoji, "g")) || []).length;
+        };
+        checkTime = () => {
+          time = (timeSentence.match(new RegExp(timeEmoji, "g")) || []).length;
         };
 
         //Generate a rgb to apply in css.
@@ -185,9 +198,9 @@
           var timeElement = document.getElementById("time");
           timeElement.classList.remove("hidden");
           const countdown = setInterval(() => {
-            timeElement.innerText = time;
-            time--;
-            if (time < 0) {
+            minusTime();
+            checkTime();
+            if (time < 1) {
               clearInterval(countdown);
               // Define the GET request
               xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
