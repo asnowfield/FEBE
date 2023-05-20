@@ -1,5 +1,6 @@
 body{
     background-color: rgb(245, 250, 248);
+    text-align: center;
 }
 h1{
     text-align: center;
@@ -9,12 +10,19 @@ h1{
 }
 .frame{
     width: 80vw;
-    height: 80vh;
     border: 1px solid black;
     margin: 0 auto;
-    text-align: center;
-
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 .frame p{
     display: inline;
+}
+.frame >*{
+    flex:1;
+}
+.homeButton {
+    width: 50vw;
+    margin-bottom: 15px;
 }

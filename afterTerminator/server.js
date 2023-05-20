@@ -76,9 +76,10 @@ app.post("/rank/:mode/:difficulty", (req, res) => {
   const { mode, difficulty } = req.params;
   let db = new sqlite3.Database("quiz.db");
 
-  // Determine the table name based on the difficulty
+  // If want to show some person than add LIMIT 40 after DESC
+  // Determine the table name based on the difficulty LIMIT 40
   db.all(
-    `SELECT userName, score FROM "${mode}" WHERE difficulty = ? ORDER BY score DESC LIMIT 3 `,
+    `SELECT userName, score FROM "${mode}" WHERE difficulty = ? ORDER BY score DESC `,
     [difficulty],
     (err, rows) => {
       if (err) {
@@ -87,7 +88,6 @@ app.post("/rank/:mode/:difficulty", (req, res) => {
         return;
       }
       res.send(rows);
-      console.log(rows);
       db.close();
     }
   );
