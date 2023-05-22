@@ -1,3 +1,6 @@
+# URL
+https://www.snowfield.cf
+
 # Stack
 **FE&BE**
 ><img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
@@ -10,15 +13,6 @@
 **DB**
 ><img src="https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
 
-
-# Sequnce 
-1. index.html
-2. quiz.html
-3. result.html
-    - DB에 저장. (SQLite3)
-4. rank.html
-    - DB 읽어 오기.
-
 ---
 
 # Initial Processing
@@ -29,33 +23,15 @@
 4. To Start, Enter the node server.js ❗entry point에서 설정한 js 파일 명을 입력해 주셔야 합니다.❗
 
 ---
-
-# TODO
-1. Upgrading start.html.
-2. 
-3. Adjust UI, UX.
-4. add meta.
-5. Sort a country by IP address.
-7. window size.
-8. Interactive select mode.
-9. iphone meta don't show
+# Interesting
+1. Android can show a meta by snowfield.cf but apple won't.
+2. N datatables vs one datatable that has one more column. using what and why?
 
 # Big part.
 1. MEMber, delete score? 
 2. if user is a member, than score maintiained in forever perhaps delete score. anonymous score get delete in 24hours.
 3. pop cat처럼 귀여운거로 하기? It'll take some time.
-
+5. Sort a country by IP address.
 
 # Done 
-1. Index.html에서 난이도별 rank.html 이동 버튼.
-2. N datatables vs one datatable that has one more column. chose N tables.
-3. Fix Color funtion that over 255.
-4. index.html에서 rank.html로 이동 버튼.
-5. rank.html 에서 index.html로 이동 버튼.
-7. 10second speed run.
-11. name can be Null.
-10. score => index to button.
-8. 3-life game. (공동 순위가 있을 수 있으니. time으로 얼마나 걸렸는지 확인하기)
-9. window.litem if press key
-6. terminator mode.
-9. 
+1. 
