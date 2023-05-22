@@ -38,6 +38,7 @@
 5. Sort a country by IP address.
 7. window size.
 8. Interactive select mode.
+9. iphone meta don't show
 
 # Big part.
 1. MEMber, delete score? 
