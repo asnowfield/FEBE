@@ -39,11 +39,13 @@ https://www.snowfield.cf
 1. Alert a Tip to user that keyboard user can use a keyboard to play by press the number button.
 2. By pressing a button toss a parameters, that mode, difficulty. so server can provide a appropriate info to user.
 3. Make two options that 3life, 10sec.
+
 **selection.html**
 1. Checking a radio option than show a gif, to interactive web.
 2. Set a css to adjusting a window size.
 3. Show every table data in that rank board.
 4. Also button.
+
 **quiz.html**
 1. Keyboard function
 2. Score function
@@ -52,10 +54,12 @@ https://www.snowfield.cf
 5. Control css color by ternary operator.
 6. Show a number for keyboard user.
 7. Setting adjusting window size, that mean for mobile, tablet, laptop, desktop user.
+
 **result.html**
 1. Read data that wroten previous html.
 2. Submit a username but it can be null so user score can be registered anonymously.
 3. Also againn, home button.
+
 **rank.html**
 1. show evert data in that difficulty, mode rankboard.
 2. rank frame can be extended by data number. if there is 1,000 data than frame will stratched just for that.
