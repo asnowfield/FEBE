@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/quiz.css" />
+    <title>Color Master</title>
+  </head>
+
+  <body>
+    <header>
+      <h1><a href="/">Color Master</a></h1>
+    </header>
+
+    <div class="container">
+      <div class="time">
+        <p id="time" class="item hidden">🏁Time:⏳⏳⏳⏳⏳⏳⏳⏳⏳⏳</p>
+      </div>
+      <div class="life">
+        <p id="life" class="item hidden">🏁Life:❤️‍🔥❤️‍🔥❤️‍🔥</p>
+      </div>
+      <div class="score item">
+        <p>score:</p>
+        <p id="score">0</p>
+      </div>
+    </div>
+    <div class="box">
+      <div class="common" id="element1" onclick="select(this)"><p class="boxText">1</p></div>
+      <div class="common" id="element2" onclick="select(this)"><p class="boxText">2</p></div>
+      <div class="common" id="element3" onclick="select(this)"><p class="boxText">3</p></div>
+      <div class="common" id="element4" onclick="select(this)"><p class="boxText">4</p></div>
+      <div class="common" id="element5" onclick="select(this)"><p class="boxText">5</p></div>
+      <div class="common" id="element6" onclick="select(this)"><p class="boxText">6</p></div>
+    </div>
+
+    <footer>
+      <script>
+        //check dificult by URL
+        var dificult, modeNum, corectValue;
+        var common = document.getElementsByClassName("common");
+        var r, g, b, rgb, uniRGB;
+        //Generate a unique selection.
+        var uniqueClassNum = Math.floor(Math.random() * common.length);
+        common[uniqueClassNum].classList.add("unique");
+        var unique = document.getElementsByClassName("unique");
+        //CheckingMode.
+        var lifeEmoji = "❤️‍🔥";
+        var timeEmoji = "⏳";
+        var lifeSentence = document.getElementById("life").textContent;
+        var timeSentence = document.getElementById("time").textContent;
+        var life;
+        var time;
+
+        var score = 0;
+        localStorage.setItem("resultScore", score);
+        //Send a URL to next html.
+        const paraURL = window.location.pathname;
+        const parts = paraURL.split(/\/+/);
+        const paraMode = parts[parts.length - 2];
+        const paraDificult = parts[parts.length - 1];
+        // Create an XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        //Keyboard function.
+        document.addEventListener("keydown", function (event) {
+          const key = parseInt(event.key, 10);
+          if (key >= 1 && key <= 6) {
+            const elementId = `element${key}`;
+            const targetElement = document.getElementById(elementId);
+            if (targetElement) {
+              targetElement.click();
+            }
+          }
+        });
+
+        //Literally minus one life.
+        minusLife = () => {
+          document.getElementById("life").textContent = lifeSentence.replace(
+            new RegExp(lifeEmoji),
+            ""
+          );
+          lifeSentence = document.getElementById("life").textContent;
+        };
+        minusTime = () => {
+          document.getElementById("time").textContent = timeSentence.replace(
+            new RegExp(timeEmoji),
+            ""
+          );
+          timeSentence = document.getElementById("time").textContent;
+        };
+
+        //Literally check life.
+        checkLife = () => {
+          life = (lifeSentence.match(new RegExp(lifeEmoji, "g")) || []).length;
+        };
+        checkTime = () => {
+          time = (timeSentence.match(new RegExp(timeEmoji, "g")) || []).length;
+        };
+
+        //Generate a rgb to apply in css.
+        color = () => {
+          r = Math.floor(Math.random() * 256); // generates a random value for red (0-255)
+          g = Math.floor(Math.random() * 256); // generates a random value for green (0-255)
+          b = Math.floor(Math.random() * 256); // generates a random value for blue (0-255)
+          return "rgb(" + r + "," + g + "," + b + ")";
+        };
+
+        //Checking over css rgb value.
+        rOverMax = () => {
+          return r + modeNum > 255 ? r - modeNum : r + modeNum;
+        };
+        gOverMax = () => {
+          return g + modeNum > 255 ? g - modeNum : g + modeNum;
+        };
+        bOverMax = () => {
+          return b + modeNum > 255 ? b - modeNum : b + modeNum;
+        };
+
+        //Literaly generate Uniqe color
+        generateUnique = () => {
+          return (
+            "rgb(" +
+            (rOverMax() % 256) +
+            "," +
+            (gOverMax() % 256) +
+            "," +
+            (bOverMax() % 256) +
+            ")"
+          );
+        };
+
+        //Plus a score by checking the mode. also active action.
+        select = (current) => {
+          score = Number(document.getElementById("score").innerHTML);
+          //Update score & Control lifeMode.
+          if (current.classList.contains("unique")) {
+            score += corectValue;
+            localStorage.setItem("resultScore", score);
+            document.getElementById("score").innerHTML = score;
+          } else {
+            if (paraMode === "3life") {
+              //Minus life.
+              minusLife();
+              checkLife();
+              if (life < 1) {
+                // Define the GET request
+                xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
+
+                // Set the onload event handler
+                xhr.onload = function () {
+                  console.log(xhr.status);
+                  // Check if the request was successful
+                  if (xhr.status === 200) {
+                    // Redirect to result.html
+                    window.location.href = `/result/${paraMode}/${paraDificult}`;
+                  } else {
+                    // Handle the error case
+                    console.error("Error:", xhr.status);
+                  }
+                };
+                // Send the request
+                xhr.send();
+              }
+            }
+          }
+
+          //Change the unique selection.
+          unique[0].classList.remove("unique");
+          uniqueClassNum = Math.floor(Math.random() * common.length);
+          common[uniqueClassNum].classList.add("unique");
+
+          //Change the color.
+          rgb = color();
+          for (var i = 0; i < common.length; i++) {
+            common[i].style.backgroundColor = rgb;
+          }
+          unique[0].style.backgroundColor = generateUnique();
+        };
+
+        //Modifing by current dificult.
+        if (paraDificult === "easy") {
+          modeNum = 42;
+          corectValue = 7;
+        } else if (paraDificult === "normal") {
+          modeNum = 28;
+          corectValue = 10;
+        } else if (paraDificult === "hard") {
+          modeNum = 7;
+          corectValue = 15;
+        } else {
+          modeNum = 1;
+          corectValue = 100;
+        }
+
+        //CheckingMode.
+        if (paraMode === "10sec") {
+          var timeElement = document.getElementById("time");
+          timeElement.classList.remove("hidden");
+          const countdown = setInterval(() => {
+            minusTime();
+            checkTime();
+            if (time < 1) {
+              clearInterval(countdown);
+              // Define the GET request
+              xhr.open("GET", `/result/${paraMode}/${paraDificult}`);
+
+              // Set the onload event handler
+              xhr.onload = function () {
+                // Check if the request was successful
+                if (xhr.status === 200) {
+                  console.log(xhr.status);
+                  // Redirect to result.html
+                  window.location.href = `/result/${paraMode}/${paraDificult}`;
+                } else {
+                  // Handle the error case
+                  console.error("Error:", xhr.status);
+                }
+              };
+              // Send the request
+              xhr.send();
+            }
+          }, 1000);
+        } else if (paraMode === "3life") {
+          var lifeElement = document.getElementById("life");
+          lifeElement.classList.remove("hidden");
+        }
+
+        //Apply color.
+        rgb = color();
+        for (var i = 0; i < common.length; i++) {
+          common[i].style.backgroundColor = rgb;
+        }
+        uniRGB = generateUnique();
+        unique[0].style.backgroundColor = uniRGB;
+      </script>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/selection.css" />
+    <title>Color Master</title>
+  </head>
+
+  <body>
+    <header>
+      <h1><a href="/">Color Master</a></h1>
+    </header>
+    <form id="difficultyForm">
+      <div class="selectionContainer">
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="easy"
+            id="easy"
+            onclick="checkRadio()"
+          /><label for="easy">Easy</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="normal"
+            id="normal"
+            onclick="checkRadio()"
+          /><label for="normal">Normal</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="hard"
+            id="hard"
+            onclick="checkRadio()"
+          /><label for="hard">Hard</label>
+        </div>
+        <div class="selection">
+          <input
+            type="radio"
+            name="difficulty"
+            value="terminator"
+            id="terminator"
+            onclick="checkRadio()"
+          /><label for="terminator">Terminator</label>
+        </div>
+      </div>
+      <button type="button" id="startButton">🎮Game Start🎮</button>
+    </form>
+    <div class="rankframe">
+      <button class="rank" id="easyRank" onclick="easyRank()">
+        <div>
+          <span>😆Easy Rank Board😆</span>
+        </div>
+      </button>
+      <button class="rank" id="normalRank" onclick="normalRank()">
+        <div>
+          <span>🙂Normal Rank Board🙂</span>
+        </div>
+      </button>
+      <button class="rank" id="hardRank" onclick="hardRank()">
+        <div>
+          <span>🤨Hard Rank Board🤨</span>
+        </div>
+      </button>
+      <button class="rank" id="terminatorRank" onclick="terminatorRank()">
+        <div>
+          <span>🤖Terminator Rank Board🤖</span>
+        </div>
+      </button>
+    </div>
+    <img id="easyImg" src="/img/easy.webp" style="display: none" />
+    <img id="normalImg" src="/img/normal.webp" style="display: none" />
+    <img id="hardImg" src="/img/hard.webp" style="display: none" />
+    <img id="terminatorImg" src="/img/terminator.webp" style="display: none" />
+
+    <footer>
+      <script>
+        const currentURL = window.location.pathname; // Get the current URL path
+        const link = document.getElementById("myLink"); // Get the link element by its ID
+        const mode = currentURL.substring(1); // Remove the leading slash from the current URL
+        const difficultyForm = document.getElementById("difficultyForm");
+        const startButton = document.getElementById("startButton");
+
+        checkRadio = () => {
+          const difficultyRadios = document.getElementsByName("difficulty");
+          const images = document.querySelectorAll("img");
+
+          images.forEach((img) => {
+            img.style.display = "none";
+          });
+
+          difficultyRadios.forEach((radio) => {
+            if (radio.checked) {
+              const imgId = radio.id + "Img";
+              const correspondingImg = document.getElementById(imgId);
+              if (correspondingImg) {
+                correspondingImg.style.display = "";
+              }
+            }
+          });
+        };
+
+        startButton.addEventListener("click", () => {
+          const dificult = difficultyForm.querySelector(
+            'input[name="difficulty"]:checked'
+          ).value;
+          const url = `/clkvalue/${mode}/${dificult}`;
+          window.location.href = url;
+        });
+
+        easyRank = () => {
+          window.location.href = `/rank/${mode}/easy`;
+        };
+        normalRank = () => {
+          window.location.href = `/rank/${mode}/normal`;
+        };
+        hardRank = () => {
+          window.location.href = `/rank/${mode}/hard`;
+        };
+        terminatorRank = () => {
+          window.location.href = `/rank/${mode}/terminator`;
+        };
+      </script>
+    </footer>
+  </body>
+</html>

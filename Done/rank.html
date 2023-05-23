@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/rank.css" />
+    <title>Color Master</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>🏆Who is the BEST🏆</h1>
+    </header>
+    <button onclick="home()" class="homeButton">🏡To home🏡</button>
+    <div class="frame">
+      <p id="scores"></p>
+    </div>
+
+    <script>
+      var xhr = new XMLHttpRequest();
+      const paraURL = window.location.pathname;
+      const parts = paraURL.split(/\/+/);
+      const paraMode = parts[parts.length - 2];
+      const paraDificult = parts[parts.length - 1];
+
+      xhr.open("POST", `/rank/${paraMode}/${paraDificult}`, true);
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // Parse the response JSON and add the rows to the HTML page
+          var data = JSON.parse(xhr.responseText);
+          var scoresDiv = document.getElementById("scores");
+          data.forEach((row) => {
+            var div = document.createElement("div");
+            div.innerHTML = row.userName + ": " + row.score;
+            scoresDiv.appendChild(div);
+          });
+        } else {
+          console.error(xhr.statusText);
+        }
+      };
+      xhr.onerror = () => {
+        console.error(xhr.statusText);
+      };
+      xhr.send();
+
+      home = () => {
+        window.location.href = `/`;
+      };
+    </script>
+  </body>
+</html>
