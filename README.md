@@ -35,6 +35,10 @@ https://www.snowfield.cf
 5. Sort a country by IP address.
 
 # Done 
+**index.html(snowfield)**
+1. meta
+2. SEO
+
 **index.html**
 1. Alert a Tip to user that keyboard user can use a keyboard to play by press the number button.
 2. By pressing a button toss a parameters, that mode, difficulty. so server can provide a appropriate info to user.
