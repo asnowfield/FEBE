@@ -27,6 +27,7 @@ https://www.snowfield.cf
 1. Android can show a meta by snowfield.cf but apple won't.
 2. N datatables vs one datatable that has one more column. using what and why?
 3. Visual studio code extension sqlite 3 won't provide a function that delete table. so is pretty problem, to manage table. but it was easy to use.
+4. html 145 lines. js 353 lines js 61.5% bigger than html.
 
 # Big part.
 1. MEMber, delete score? 
@@ -55,6 +56,7 @@ https://www.snowfield.cf
 2. Score function
 3. Mode Function
 4. Using locastorage to result.html read a score. Can be improved in json params. i see there was three option [json params, url prams, localstorage] but i choose a localstorage. but now local storage is weak for security. bz user can edit a value in any time. for now is best json parmas.
+but json still showed to user that can be editted anyway if is was encrypted. also by f12 var can be editted. at this point how can we secuer our data?
 5. Control css color by ternary operator.
 6. Show a number for keyboard user.
 7. Setting adjusting window size, that mean for mobile, tablet, laptop, desktop user.
