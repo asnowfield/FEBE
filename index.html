@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <title>Color Master</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Color Master</a></h1>
+    </header>
+    <div class="serverSelection">
+      <button onclick="lifeMode()">3❤️Server</button><br />
+      <button onclick="secMode()">10sec⌛Server</button>
+    </div>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>🤹‍♂️ Weeeell come!🤹‍♀️</h2>
+        
+        <p>Tip.<br>Keyboard user can play with ⌨️<br>Press 1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    lifeMode = () => {window.location.href = `/3life`;};
+    secMode = () => {window.location.href = `/10sec`;};
+    
+    window.onload = () => {
+      const popup = document.getElementById("popup");
+      popup.style.display = "block";
+    };
+    closePopup = () => {
+      const popup = document.getElementById("popup");
+      popup.style.display = "none";
+    };
+  </script>
+</html>
